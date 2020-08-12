@@ -1,7 +1,13 @@
-package org.example.dishdbtest.data.jpa.hibernate.entity;
+package org.example.dishes.data.entity;
 
-import org.junit.Before;
-import org.junit.Test;
+
+
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,11 +16,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+@Ignore
+@ExtendWith(SpringExtension.class)
+@AutoConfigureEmbeddedDatabase(beanName = "dataSource")
 public class RelationTest {
     private EntityManagerFactory entityManagerFactory;
 
-    @Before
+    @BeforeAll
     public void setUp() {
 
         entityManagerFactory = Persistence.createEntityManagerFactory("org.example.dishdbtest.data.jpa.hibernate");

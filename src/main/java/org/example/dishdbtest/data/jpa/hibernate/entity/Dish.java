@@ -27,7 +27,7 @@ public class Dish extends AbstractIdentifiableObject {
 
     @Getter
     @Setter
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "DISH_PRODUCTS",
             joinColumns = @JoinColumn(name = "DISH_ID"),
             inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))

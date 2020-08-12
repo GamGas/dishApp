@@ -50,6 +50,7 @@ public class DishDAOImpl implements DishDAO {
         em = emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(dish);
+        em.getTransaction().commit();
         em.close();
 
 

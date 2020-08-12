@@ -59,12 +59,12 @@ public class RelationTest {
         DishDAOImpl.getInstance()
                 .findAll().forEach(System.out::println);
 
-        UserItem editItem = UserItemDAOImpl.getInstance().findById(1L);
-        editItem.setUsername("sosiosel");
-        UserItemDAOImpl.getInstance().update(editItem);
+        Dish editItem = DishDAOImpl.getInstance().findById(2L);
+        editItem.setName("Уха из петуха");
+        DishDAOImpl.getInstance().update(editItem);
 
         System.out.println("Editing field username");
-        UserItemDAOImpl.getInstance()
+        DishDAOImpl.getInstance()
                 .findAll().forEach(System.out::println);
 
     }

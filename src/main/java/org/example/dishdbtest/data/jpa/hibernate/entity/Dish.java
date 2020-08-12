@@ -42,6 +42,7 @@ public class Dish extends AbstractIdentifiableObject {
 
         StringBuilder sb = new StringBuilder("");
         sb.append("Dish{" +
+                "id='" + getId() + '\'' +
                 "name='" + name + '\'' +
                 "=[");
         for (UserItem user : users) {

@@ -34,6 +34,7 @@ public class UserItem extends AbstractIdentifiableObject {
     public String toString() {
         StringBuilder sb = new StringBuilder("");
         sb.append("User{" +
+                "id='" + getId() + '\'' +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", localDate=" + localDate +

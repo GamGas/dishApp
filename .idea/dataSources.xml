@@ -13,5 +13,15 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/dishes_test</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="org.example.dishdbtest.data.jpa.hibernate/Hibernate" uuid="07d7cba9-21ab-40a5-8678-91b660ccf781">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/vncServer/IdeaProjects/dishApp/src/main/resources/META-INF/persistence.xml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/dishes_test</jdbc-url>
+    </data-source>
   </component>
 </project>

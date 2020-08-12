@@ -1,5 +1,8 @@
 package org.example.dishdbtest.data.jpa.hibernate.entity;
 
+import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAO.UserItemDAO;
+import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAOImpl.DishDAOImpl;
+import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAOImpl.UserItemDAOImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,13 +20,10 @@ public class RelationTest {
     @Before
     public void setUp() {
 
-        entityManagerFactory = Persistence.createEntityManagerFactory("org.example.dishdbtest.data.jpa.hibernate");
-        EntityManager em = entityManagerFactory.createEntityManager();
         UserItem u = new UserItem();
         u.setUsername("blablansky");
         u.setPassword("Xx6gusws");
         u.setLocalDate(LocalDate.now());
-
 
         Recipe r = new Recipe();
         r.setText("первый этап");
@@ -46,31 +46,26 @@ public class RelationTest {
         d.setDishProducts(products);
 
         d.setRecipe(r);
-//        r.setDish(d);
 
         u.setUserDishes(Collections.singletonList(d));
-        em.getTransaction().begin();
-        em.merge(u);
-
-        em.getTransaction().commit();
-        em.close();
+        DishDAOImpl.getInstance().save(d);
+        UserItemDAOImpl.getInstance().save(u);
     }
 
     @Test
     public void testGreeter(){
-        EntityManager em = entityManagerFactory.createEntityManager();
+        UserItemDAOImpl.getInstance()
+                .findAll().forEach(System.out::println);
+        DishDAOImpl.getInstance()
+                .findAll().forEach(System.out::println);
 
-        em.getTransaction().begin();
-        em.createQuery("from UserItem ", UserItem.class)
-                .getResultList()
-                .forEach(System.out::println);
-        em.createQuery("from Dish ", Dish.class)
-                .getResultList()
-                .forEach(System.out::println);
-        em.createQuery("from Product ", Product.class)
-                .getResultList()
-                .forEach(System.out::println);
-        em.getTransaction().commit();
-        em.close();
+        UserItem editItem = UserItemDAOImpl.getInstance().findById(1L);
+        editItem.setUsername("sosiosel");
+        UserItemDAOImpl.getInstance().update(editItem);
+
+        System.out.println("Editing field username");
+        UserItemDAOImpl.getInstance()
+                .findAll().forEach(System.out::println);
+
     }
 }

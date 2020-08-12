@@ -24,7 +24,7 @@ public class Product extends AbstractIdentifiableObject{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Product{" + "title='").append(title).append('\'').append("=[");
+        sb.append("Продукт{" + "Название = '").append(title).append('\'').append(" Входит в =[");
         for (Dish dish : dishes) {
             sb.append(dish.getName() + ", ");
         }

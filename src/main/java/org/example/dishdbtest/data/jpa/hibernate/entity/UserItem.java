@@ -24,7 +24,7 @@ public class UserItem extends AbstractIdentifiableObject {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "primaryUserItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "primaryUserItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Dish> dishes;
 
     @Override

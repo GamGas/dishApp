@@ -2,6 +2,7 @@ package org.example.dishdbtest.data.jpa.hibernate.entity;
 
 import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAO.UserItemDAO;
 import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAOImpl.DishDAOImpl;
+import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAOImpl.ProductDAOImpl;
 import org.example.dishdbtest.data.jpa.hibernate.entity.access.DAOImpl.UserItemDAOImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,10 @@ public class RelationTest {
         products.add(p2);
         products.add(p3);
 
+        ProductDAOImpl.getInstance().save(p1);
+        ProductDAOImpl.getInstance().save(p2);
+        ProductDAOImpl.getInstance().save(p3);
+
         d.setDishProducts(products);
         d.setPrimaryUserItem(u);
         d.setRecipe(r);
@@ -80,5 +85,10 @@ public class RelationTest {
         userItemDAO.findAll().forEach(System.out::println);
 
         System.out.println("проверили изменения в БД");
+    }
+
+    @Test
+    public void testProducts(){
+        ProductDAOImpl.getInstance().findAll().forEach(System.out::println);
     }
 }

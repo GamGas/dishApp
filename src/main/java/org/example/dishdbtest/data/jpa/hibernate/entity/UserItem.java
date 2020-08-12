@@ -24,28 +24,17 @@ public class UserItem extends AbstractIdentifiableObject {
 
     @Getter
     @Setter
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_DISHES",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "DISH_ID"))
-    private Collection<Dish> userDishes;
+    @OneToMany(mappedBy = "primaryUserItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Dish> dishes;
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("");
-        sb.append("User{" +
-                "id='" + getId() + '\'' +
+        return "UserItem{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", localDate=" + localDate +
-                ", userDishes=[");
-        for (Dish userDish : userDishes) {
-            sb.append(userDish.getName() + ", ");
-        }
-
-        sb = new StringBuilder(sb.substring(0, sb.toString().length() - 2));
-        sb.append("]}");
-        return sb.toString();
+                ", dishes=" + dishes +
+                '}';
     }
 
     public UserItem() {

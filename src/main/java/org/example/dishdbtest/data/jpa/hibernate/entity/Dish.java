@@ -20,10 +20,12 @@ public class Dish extends AbstractIdentifiableObject {
     @JoinColumn(name = "RECIPE_ID", nullable = false)
     private Recipe recipe;
 
+
     @Getter
     @Setter
-    @ManyToMany(mappedBy = "userDishes")
-    private Collection<UserItem> users;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USERITEM_ID")
+    private UserItem primaryUserItem;
 
     @Getter
     @Setter
@@ -44,13 +46,12 @@ public class Dish extends AbstractIdentifiableObject {
         sb.append("Dish{" +
                 "id='" + getId() + '\'' +
                 "name='" + name + '\'' +
-                "=[");
-        for (UserItem user : users) {
-            sb.append(user.getUsername() + ", ");
-        }
+                "user=['");
+        sb.append(primaryUserItem.getUsername() + "' ");
+
         sb = new StringBuilder(sb.substring(0, sb.toString().length() - 2));
 
-        sb.append("] products = [" );
+        sb.append("] products = [");
 
         for (Product product : dishProducts) {
             sb.append(product.getTitle() + ", ");
@@ -58,7 +59,7 @@ public class Dish extends AbstractIdentifiableObject {
 
         sb = new StringBuilder(sb.substring(0, sb.toString().length() - 2));
 
-        sb.append("]"+"recipe = \'"+recipe+"\'}");
+        sb.append("]" + "recipe = \'" + recipe + "\'}");
         return sb.toString();
     }
 }

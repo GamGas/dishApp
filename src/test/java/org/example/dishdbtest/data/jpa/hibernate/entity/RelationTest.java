@@ -45,10 +45,10 @@ public class RelationTest {
         products.add(p3);
 
         d.setDishProducts(products);
-
+        d.setPrimaryUserItem(u);
         d.setRecipe(r);
+        u.setDishes(Collections.singletonList(d));
 
-        u.setUserDishes(Collections.singletonList(d));
         DishDAOImpl.getInstance().save(d);
         UserItemDAOImpl.getInstance().save(u);
     }
@@ -60,14 +60,6 @@ public class RelationTest {
         DishDAOImpl.getInstance()
                 .findAll().forEach(System.out::println);
 
-        Dish editItem = DishDAOImpl.getInstance().findById(2L);
-        editItem.setName("Уха из петуха");
-        DishDAOImpl.getInstance().update(editItem);
-
-        System.out.println("Editing field name");
-        DishDAOImpl.getInstance()
-                .findAll().forEach(System.out::println);
-
     }
 
     @Test
@@ -76,7 +68,7 @@ public class RelationTest {
         DishDAOImpl dishDAO = DishDAOImpl.getInstance();
 
         UserItem userItem = userItemDAO.findById(1L);
-        Collection<Dish> dishes = userItem.getUserDishes();
+        Collection<Dish> dishes = userItem.getDishes();
         ArrayList<Dish> dishArrayList = new ArrayList<>(dishes);
         Dish dish = dishArrayList.get(0);
         System.out.printf("dish object id= %s, name= %s\n"

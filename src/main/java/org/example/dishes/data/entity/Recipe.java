@@ -18,4 +18,11 @@ public class Recipe extends BaseEntity {
     @OneToOne(mappedBy = "recipe")
     private Dish dish;
 
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "text='" + text + '\'' +
+                ", dish=" + dish.getName() +
+                '}';
+    }
 }

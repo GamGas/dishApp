@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/dishes_test</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="dishes@localhost" uuid="9a04eff7-dfa6-4671-91b2-91ac1a62efc3">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/dishes</jdbc-url>
+    </data-source>
   </component>
 </project>

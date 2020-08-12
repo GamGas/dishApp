@@ -21,10 +21,21 @@ public class Dish extends BaseEntity {
     @ManyToMany(mappedBy = "userDishes")
     private Collection<UserItem> users;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "DISH_PRODUCTS",
             joinColumns = @JoinColumn(name = "DISH_ID"),
             inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
     private Collection<Product> dishProducts;
 
+    @Override
+    public String toString() {
+        String output = "Dish{" +
+                "name='" + name + '\'' +
+                ", recipe=" + recipe.getText() + ", users=";
+        for (UserItem user : users) {
+            output = output + user.getUsername();
+        }
+        output = output + ", dishProducts=" + dishProducts + '}';
+        return output;
+    }
 }

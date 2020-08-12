@@ -19,4 +19,6 @@ public class Product extends BaseEntity {
     @ManyToMany(mappedBy = "dishProducts")
     private Collection<Dish> dishes;
 
+
+
 }

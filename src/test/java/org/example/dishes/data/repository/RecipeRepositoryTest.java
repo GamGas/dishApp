@@ -12,10 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
-@AutoConfigureEmbeddedDatabase(beanName = "dataSource")
-@DataJpaTest
-class RecipeRepositoryTest {
+class RecipeRepositoryTest extends BasePersistTest {
 
     @Autowired
     private RecipeRepository recipeRepository;

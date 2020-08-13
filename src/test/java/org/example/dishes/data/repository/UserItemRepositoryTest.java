@@ -17,10 +17,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(SpringExtension.class)
-@AutoConfigureEmbeddedDatabase(beanName = "dataSource")
-@DataJpaTest
-public class UserItemRepositoryTest {
+public class UserItemRepositoryTest extends BasePersistTest {
     @Autowired
     private DishRepository dishRepository;
     @Autowired

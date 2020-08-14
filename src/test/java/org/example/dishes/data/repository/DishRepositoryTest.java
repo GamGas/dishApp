@@ -12,10 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(SpringExtension.class)
-@AutoConfigureEmbeddedDatabase(beanName = "dataSource")
-@DataJpaTest
-class DishRepositoryTest {
+class DishRepositoryTest extends BasePersistTest {
 
     @Autowired
     private DishRepository dishRepository;

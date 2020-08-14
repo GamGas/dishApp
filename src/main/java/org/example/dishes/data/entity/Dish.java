@@ -3,9 +3,11 @@ package org.example.dishes.data.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -18,8 +20,9 @@ public class Dish extends BaseEntity {
     @JoinColumn(name = "RECIPE_ID", nullable = false)
     private Recipe recipe;
 
-    @ManyToMany(mappedBy = "userDishes")
-    private Collection<UserItem> users;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USERITEM_ID")
+    private UserItem primaryUserItem;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "DISH_PRODUCTS",
@@ -31,10 +34,9 @@ public class Dish extends BaseEntity {
     public String toString() {
         String output = "Dish{" +
                 "name='" + name + '\'' +
-                ", recipe=" + recipe.getText() + ", users=";
-        for (UserItem user : users) {
-            output = output + user.getUsername();
-        }
+                ", recipe=" + recipe.getText() + ", user=" + (Objects.isNull(primaryUserItem) || Objects.isNull(primaryUserItem.getUsername()) ?
+                                                             "" : primaryUserItem.getUsername());
+
         output = output + ", dishProducts=" + dishProducts + '}';
         return output;
     }

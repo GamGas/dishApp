@@ -1,6 +1,9 @@
 package org.example.dishes.data.controller;
 
+import org.example.dishes.data.entity.Dish;
+import org.example.dishes.data.entity.Recipe;
 import org.example.dishes.data.entity.UserItem;
+import org.example.dishes.data.repository.DishRepository;
 import org.example.dishes.data.repository.UserItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -17,6 +21,9 @@ public class MainControler {
 
     @Autowired
     UserItemRepository userItemRepository;
+
+    @Autowired
+    DishRepository dishRepository;
 
 
     @GetMapping(value = {"/","/index"})
@@ -32,10 +39,18 @@ public class MainControler {
         item.setLocalDate(LocalDate.now());
         item.setUsername("Smurph");
         item.setPassword("Password");
-        List<UserItem> useritems = new ArrayList<>();
-        useritems.add(item);
+        Dish dish = new Dish();
+        dish.setName("Уха из петуха");
+
+        Recipe recipe = new Recipe();
+        recipe.setText("recipeTest");
+        dish.setRecipe(recipe);
+
+        item.setDishes(Collections.singletonList(dish));
+
         userItemRepository.save(item);
-        model.addAttribute("useritems", useritems);
+
+        model.addAttribute("useritems", userItemRepository.findAll());
 
         return "useritemlist";
     }

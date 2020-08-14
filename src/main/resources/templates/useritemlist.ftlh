@@ -31,6 +31,8 @@
             </tr>
         </#list>
     </table>
+
+    <a href="adduser">Add new user</a>
 </div>
 </body>
 </html>

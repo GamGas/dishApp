@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -33,25 +35,24 @@ public class MainControler {
     }
 
     @GetMapping(value = { "/useritemlist" })
-    public String personList(Model model) {
+    public String userItemList(Model model) {
 
-        UserItem item = new UserItem();
-        item.setLocalDate(LocalDate.now());
-        item.setUsername("Smurph");
-        item.setPassword("Password");
-        Dish dish = new Dish();
-        dish.setName("Уха из петуха");
-
-        Recipe recipe = new Recipe();
-        recipe.setText("recipeTest");
-        dish.setRecipe(recipe);
-
-        item.setDishes(Collections.singletonList(dish));
-
-        userItemRepository.save(item);
 
         model.addAttribute("useritems", userItemRepository.findAll());
 
         return "useritemlist";
+    }
+
+    @GetMapping(value = {"/adduser"})
+    public String addUser(Model model){
+        return "adduser";
+    }
+    @PostMapping(value = {"/adduser"})
+    public String addNewUser(Model model,
+                             @ModelAttribute("useritem") UserItem userItem){
+        userItem.setLocalDate(LocalDate.now());
+        userItemRepository.save(userItem);
+
+        return "redirect:/useritemlist";
     }
 }

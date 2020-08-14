@@ -13,7 +13,6 @@
 
     <table border="1">
         <tr>
-<<<<<<< HEAD
             <th>Id</th>
             <th>Username</th>
             <th>Password</th>
@@ -29,20 +28,11 @@
                 <#if useritem.getDishes()?has_content>
                 <td>true</td>
                 </#if>
-=======
-            <th>Username</th>
-            <th>Password</th>
-            <th>LocalDate</th>
-        </tr>
-        <#list useritems as useritem>
-            <tr>
-                <td>${useritem.getUsername()}</td>
-                <td>${useritem.getPassword()}</td>
-                <td>${useritem.getLocalDate()}</td>
->>>>>>> parent of dc1f23e... Удалил файлы из папки target
             </tr>
         </#list>
     </table>
+
+    <a href="adduser">Add new user</a>
 </div>
 </body>
 </html>

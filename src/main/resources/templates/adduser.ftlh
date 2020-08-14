@@ -12,7 +12,7 @@
 <div>
     <fieldset>
         <legend>Add User</legend>
-        <form name="useritemform" action="" method="POST">
+        <form name="useritem" action="" method="POST">
             <input name="username" type="text" class="text">
             <input name="password" type="text" class="text">
             <input type="submit" value="Create"/>

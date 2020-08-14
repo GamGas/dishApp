@@ -34,6 +34,7 @@ public class MainControler {
         item.setPassword("Password");
         List<UserItem> useritems = new ArrayList<>();
         useritems.add(item);
+        userItemRepository.save(item);
         model.addAttribute("useritems", useritems);
 
         return "useritemlist";

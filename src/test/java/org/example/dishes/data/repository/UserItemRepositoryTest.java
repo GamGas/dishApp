@@ -39,8 +39,8 @@ public class UserItemRepositoryTest extends BasePersistTest {
         recipe.setText("Recipe text");
 
         dish.setRecipe(recipe);
-        userItem.setUserDishes(Collections.singletonList(dish));
-        dish.setUsers(Collections.singletonList(userItem));
+        userItem.setDishes(Collections.singletonList(dish));
+        dish.setPrimaryUserItem(userItem);
 
         userItemRepository.save(userItem);
         assertNotNull(userItem.getId());

@@ -18,10 +18,17 @@ public class UserItem extends BaseEntity {
 
     private LocalDate localDate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_DISHES",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "DISH_ID"))
-    private Collection<Dish> userDishes;
+    @OneToMany(mappedBy = "primaryUserItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Dish> dishes;
+
+    @Override
+    public String toString() {
+        return "UserItem{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", localDate=" + localDate +
+                ", dishes=" + dishes +
+                '}';
+    }
 
 }

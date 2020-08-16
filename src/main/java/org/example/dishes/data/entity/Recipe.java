@@ -1,5 +1,6 @@
 package org.example.dishes.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,13 +17,7 @@ public class Recipe extends BaseEntity {
     private String text;
 
     @OneToOne(mappedBy = "recipe")
+    @JsonBackReference
     private Dish dish;
 
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "text='" + text + '\'' +
-                ", dish=" + dish.getName() +
-                '}';
-    }
 }

@@ -1,5 +1,7 @@
 package org.example.dishes.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,20 +19,8 @@ public class Product extends BaseEntity {
     private String title;
 
     @ManyToMany(mappedBy = "dishProducts")
+    @JsonBackReference
     private Collection<Dish> dishes;
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Продукт{" + "Название = '").append(title).append('\'').append(" Входит в =[");
-        for (Dish dish : dishes) {
-            sb.append(dish.getName() + ", ");
-        }
-        sb = new StringBuilder(sb.substring(0, sb.toString().length() - 2));
-
-        sb.append("]}");
-        return sb.toString();
-
-    }
 
 }

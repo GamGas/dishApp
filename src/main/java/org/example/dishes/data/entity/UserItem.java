@@ -1,5 +1,6 @@
 package org.example.dishes.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,16 +20,9 @@ public class UserItem extends BaseEntity {
     private LocalDate localDate;
 
     @OneToMany(mappedBy = "primaryUserItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Collection<Dish> dishes;
 
-    @Override
-    public String toString() {
-        return "UserItem{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", localDate=" + localDate +
-                ", dishes=" + dishes +
-                '}';
-    }
+
 
 }

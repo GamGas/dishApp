@@ -20,7 +20,6 @@ public class UserItem extends BaseEntity {
     private LocalDate localDate;
 
     @OneToMany(mappedBy = "primaryUserItem", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private Collection<Dish> dishes;
 
 

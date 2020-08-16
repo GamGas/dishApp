@@ -2,6 +2,7 @@ package org.example.dishes.data.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,7 @@ public class Dish extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USERITEM_ID")
-    @JsonBackReference
+    @JsonIgnoreProperties(value = {"dishes", "password" , "localDate"})
     private UserItem primaryUserItem;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -11,17 +11,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class DishController {
 
-    @Autowired
-    private UserItemRepository userItemRepository;
+    private final UserItemRepository userItemRepository;
+
+    private final DishRepository dishRepository;
 
     @Autowired
-    private DishRepository dishRepository;
+    public DishController(UserItemRepository userItemRepository, DishRepository dishRepository) {
+        this.userItemRepository = userItemRepository;
+        this.dishRepository = dishRepository;
+    }
 
     @PostMapping(value = "/users/{id}/dishes")
     public ResponseEntity<?> create(@PathVariable(name="id")long id,
@@ -43,6 +48,14 @@ public class DishController {
     @GetMapping(value = "/dishes")
     public ResponseEntity<List<Dish>> read(){
         final List<Dish> dishes = dishRepository.findAll();
+        return !dishes.isEmpty()
+                ? new ResponseEntity<>(dishes, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping(value = "/users/{id}/dishes")
+    public ResponseEntity<Collection<Dish>> readDishes(@PathVariable(name="id")long id){
+        final Collection<Dish> dishes = userItemRepository.findById(id).get().getDishes();
+
         return dishes != null && !dishes.isEmpty()
                 ? new ResponseEntity<>(dishes, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,9 +64,7 @@ public class DishController {
     @GetMapping(value = "/dishes/{id}")
     public ResponseEntity<Dish> read(@PathVariable(name="id")long id){
         final Optional<Dish> dish = dishRepository.findById(id);
-        return dish.isPresent()
-                ? new ResponseEntity<>(dish.get(), HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return dish.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping(value = "/dishes/{id}")

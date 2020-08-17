@@ -1,8 +1,6 @@
-package org.example.dishes.data.controller.rest;
+package org.example.dishes.controller.rest;
 
 import org.example.dishes.data.entity.UserItem;
-import org.example.dishes.data.repository.DishRepository;
-import org.example.dishes.data.repository.RecipeRepository;
 import org.example.dishes.data.repository.UserItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

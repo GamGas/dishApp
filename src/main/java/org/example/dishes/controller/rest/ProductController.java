@@ -1,33 +1,24 @@
-package org.example.dishes.data.controller.rest;
+package org.example.dishes.controller.rest;
 
+import lombok.RequiredArgsConstructor;
 import org.example.dishes.data.entity.Dish;
 import org.example.dishes.data.entity.Product;
-import org.example.dishes.data.entity.UserItem;
 import org.example.dishes.data.repository.DishRepository;
 import org.example.dishes.data.repository.ProductRepository;
-import org.example.dishes.data.repository.RecipeRepository;
-import org.example.dishes.data.repository.UserItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductRepository productRepository;
     private final DishRepository dishRepository;
-
-    @Autowired
-    public ProductController(ProductRepository productRepository, DishRepository dishRepository) {
-        this.productRepository = productRepository;
-        this.dishRepository = dishRepository;
-    }
 
     @PostMapping(value = "/products")
     public ResponseEntity<?> create(@RequestParam(name = "product_title") String product_title){

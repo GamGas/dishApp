@@ -33,7 +33,6 @@ public class Dish extends BaseEntity {
     @JoinTable(name = "DISH_PRODUCTS",
             joinColumns = @JoinColumn(name = "DISH_ID"),
             inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    @JsonManagedReference
     private Collection<Product> dishProducts;
 
 }

@@ -1,6 +1,7 @@
 package org.example.dishes.data.controller.rest;
 
 import org.example.dishes.data.entity.Dish;
+import org.example.dishes.data.entity.Product;
 import org.example.dishes.data.entity.Recipe;
 import org.example.dishes.data.entity.UserItem;
 import org.example.dishes.data.repository.DishRepository;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +82,8 @@ public class DishController {
         dishRepository.save(dish);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
     @DeleteMapping(value = "/dishes/{id}")
     public ResponseEntity<?> delete(@PathVariable(name="id")long id){
         if(!dishRepository.existsById(id))
@@ -87,4 +91,5 @@ public class DishController {
         dishRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

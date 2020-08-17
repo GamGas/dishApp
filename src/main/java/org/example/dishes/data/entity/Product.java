@@ -1,6 +1,7 @@
 package org.example.dishes.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +20,7 @@ public class Product extends BaseEntity {
     private String title;
 
     @ManyToMany(mappedBy = "dishProducts")
-    @JsonBackReference
+    @JsonIgnoreProperties(value = {"recipe", "primaryUserItem" , "dishProducts"})
     private Collection<Dish> dishes;
 
 

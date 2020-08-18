@@ -2,20 +2,14 @@ package org.example.dishes.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.dishes.data.entity.form.UserItemForm;
 import org.example.dishes.data.dto.UserList;
 import org.example.dishes.data.entity.UserItem;
-import org.example.dishes.data.repository.UserItemRepository;
 import org.example.dishes.exception.NotFoundException;
 import org.example.dishes.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -24,11 +18,10 @@ public class UserItemController {
 
     private final UserService userService;
 
-    @PostMapping(value = "/users")
+    @PostMapping(value = "/users", produces = { MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestParam(name = "username") String username,
-                       @RequestParam(name = "password") String password) {
-        userService.create(username, password);
+    public void create(@RequestBody UserItemForm useritemForm) {
+        userService.create(useritemForm.getUsername(), useritemForm.getPassword());
     }
 
     @GetMapping(value = "/users")
@@ -41,11 +34,14 @@ public class UserItemController {
         return userService.get(id);
     }
 
-    @PutMapping(value = "/users/{id}")
-    public void update(@PathVariable(name = "id") long id,
-                                    @RequestParam(name = "username") String username,
-                                    @RequestParam(name = "password") String password) {
-        userService.update(id, username, password);
+    @PutMapping(value = "/users/{userid}",
+            produces = { MediaType.APPLICATION_JSON_VALUE})
+    public void update(@PathVariable(name = "userid") long userid,
+                       @RequestBody UserItemForm useritemForm) {
+
+        userService.update(useritemForm.getId(),
+                useritemForm.getUsername(),
+                useritemForm.getPassword());
     }
 
     @DeleteMapping(value = "/users/{id}")

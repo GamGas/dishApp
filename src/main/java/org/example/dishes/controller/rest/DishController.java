@@ -10,6 +10,7 @@ import org.example.dishes.data.repository.UserItemRepository;
 import org.example.dishes.exception.NotFoundException;
 import org.example.dishes.service.DishService;
 import org.example.dishes.service.UserService;
+import org.example.dishes.service.listmarker.DishListMarker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +37,9 @@ public class DishController {
     }
 
     @GetMapping(value = "/dishes")
-    public ResponseEntity<List<Dish>> read() {
-        final List<Dish> dishes = dishService.findAll();
-        return new ResponseEntity<>(dishes, HttpStatus.OK);
+    public ResponseEntity<DishListMarker> read() {
+        final DishListMarker markedList = dishService.findAll();
+        return new ResponseEntity<>(markedList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/users/{id}/dishes")

@@ -6,7 +6,7 @@ import org.example.dishes.data.entity.Recipe;
 import org.example.dishes.data.entity.UserItem;
 import org.example.dishes.data.repository.DishRepository;
 import org.example.dishes.exception.NotFoundException;
-import org.example.dishes.service.listmarker.DishListMarker;
+import org.example.dishes.data.dto.DishList;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -30,9 +30,9 @@ public class DishService {
         dishRepository.save(dish);
     }
 
-    public DishListMarker findAll() {
+    public DishList findAll() {
         List<Dish> dishes = dishRepository.findAll();
-        DishListMarker listRootMarker = new DishListMarker();
+        DishList listRootMarker = new DishList();
         if (dishes.isEmpty()) {
             throw new NotFoundException("Not dish in database!");
         }

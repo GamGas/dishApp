@@ -1,4 +1,4 @@
-package org.example.dishes.service.listmarker;
+package org.example.dishes.data.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,8 +6,8 @@ import org.example.dishes.data.entity.Dish;
 
 import java.util.List;
 
-public class DishListMarker {
+public class DishList {
     @Getter
     @Setter
-    List<Dish> dishesList;
+    private List<Dish> dishesList;
 }

@@ -1,19 +1,14 @@
 package org.example.dishes.controller.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dishes.data.entity.Dish;
+import org.example.dishes.data.dto.ProductList;
 import org.example.dishes.data.entity.Product;
 import org.example.dishes.data.repository.DishRepository;
 import org.example.dishes.data.repository.ProductRepository;
 import org.example.dishes.service.ProductService;
-import org.example.dishes.service.listmarker.ProductListMarker;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +25,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/products")
-    public ProductListMarker read(){
+    public ProductList read(){
         return productService.findAll();
     }
 

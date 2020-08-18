@@ -1,66 +1,67 @@
 package org.example.dishes.controller.rest;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.example.dishes.data.dto.UserList;
 import org.example.dishes.data.entity.UserItem;
 import org.example.dishes.data.repository.UserItemRepository;
+import org.example.dishes.exception.NotFoundException;
+import org.example.dishes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class UserItemController {
 
-    @Autowired
-    private UserItemRepository userItemRepository;
+    private final UserService userService;
 
     @PostMapping(value = "/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> create(@RequestParam(name = "username") String username,
-                                    @RequestParam(name = "password") String password){
-        UserItem userItem = new UserItem();
-        userItem.setUsername(username);
-        userItem.setPassword(password);
-        userItem.setLocalDate(LocalDate.now());
-        userItemRepository.save(userItem);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public void create(@RequestParam(name = "username") String username,
+                       @RequestParam(name = "password") String password) {
+        userService.create(username, password);
     }
 
     @GetMapping(value = "/users")
-    public List<UserItem> read(){
-        return userItemRepository.findAll();
+    public UserList read() {
+        return userService.getAll();
     }
 
     @GetMapping(value = "/users/{id}")
-    public ResponseEntity<UserItem> read(@PathVariable(name="id")long id){
-        final Optional<UserItem> user = userItemRepository.findById(id);
-        return user.isPresent()
-                ? new ResponseEntity<>(user.get(), HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public UserItem read(@PathVariable(name = "id") Long id) {
+        return userService.get(id);
     }
 
     @PutMapping(value = "/users/{id}")
-    public ResponseEntity<?> update(@PathVariable(name="id")long id,
+    public void update(@PathVariable(name = "id") long id,
                                     @RequestParam(name = "username") String username,
-                                    @RequestParam(name = "password") String password){
-        if(!userItemRepository.existsById(id))
-            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-
-        UserItem userItem = userItemRepository.findById(id).get();
-        userItem.setUsername(username);
-        userItem.setPassword(password);
-        userItem.setLocalDate(LocalDate.now());
-        userItemRepository.save(userItem);
-        return new ResponseEntity<>(HttpStatus.OK);
+                                    @RequestParam(name = "password") String password) {
+        userService.update(id, username, password);
     }
+
     @DeleteMapping(value = "/users/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name="id")long id){
-        if(!userItemRepository.existsById(id))
-            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-        userItemRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public void delete(@PathVariable(name = "id") Long id) {
+        userService.delete(id);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleAllException(Exception ex) {
+        log.error("Unexpected error", ex);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleNotFoundException(NotFoundException ex) {
+        log.error("Not found entity", ex);
     }
 }

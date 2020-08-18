@@ -1,24 +1,15 @@
 package org.example.dishes.controller.rest;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dishes.data.entity.Dish;
-import org.example.dishes.data.entity.Recipe;
-import org.example.dishes.data.repository.DishRepository;
-import org.example.dishes.data.repository.UserItemRepository;
 import org.example.dishes.exception.NotFoundException;
 import org.example.dishes.service.DishService;
-import org.example.dishes.service.UserService;
-import org.example.dishes.service.listmarker.DishListMarker;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.dishes.data.dto.DishList;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -37,7 +28,7 @@ public class DishController {
     }
 
     @GetMapping(value = "/dishes")
-    public DishListMarker read() {
+    public DishList read() {
         return dishService.findAll();
     }
 

@@ -28,63 +28,52 @@ public class DishController {
     private final DishService dishService;
 
     @PostMapping(value = "/users/{id}/dishes")
-    public ResponseEntity<?> create(@PathVariable(name = "id") Long userId,
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@PathVariable(name = "id") Long userId,
                                     @RequestParam(name = "name") String name,
                                     @RequestParam(name = "recipe") String recipe) {
 
         dishService.create(userId, name, recipe);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/dishes")
-    public ResponseEntity<DishListMarker> read() {
-        final DishListMarker markedList = dishService.findAll();
-        return new ResponseEntity<>(markedList, HttpStatus.OK);
+    public DishListMarker read() {
+        return dishService.findAll();
     }
 
     @GetMapping(value = "/users/{id}/dishes")
-    public ResponseEntity<Collection<Dish>> readDishes(@PathVariable(name = "id") Long id) {
-        final Collection<Dish> dishes = dishService.getByUser(id);
-        return new ResponseEntity<>(dishes, HttpStatus.OK);
+    public Collection<Dish> readDishes(@PathVariable(name = "id") Long id) {
+        return dishService.getByUser(id);
     }
 
     @GetMapping(value = "/dishes/{id}")
-    public ResponseEntity<Dish> read(@PathVariable(name = "id") Long id) {
-        final Dish dish = dishService.getById(id);
-        return new ResponseEntity<>(dish, HttpStatus.OK);
+    public Dish read(@PathVariable(name = "id") Long id) {
+        return dishService.getById(id);
     }
 
     @PutMapping(value = "/dishes/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Long id,
+    public void update(@PathVariable(name = "id") Long id,
                                     @RequestParam(name = "name") String name,
                                     @RequestParam(name = "recipe") String recipe) {
         dishService.update(id, name, recipe);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     @DeleteMapping(value = "/dishes/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
+    public void delete(@PathVariable(name = "id") Long id) {
         dishService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleAllException(Exception ex) {
-
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleAllException(Exception ex) {
         log.error("Unexpected error", ex);
-
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<?> handleNotFoundException(NotFoundException ex) {
-
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleNotFoundException(NotFoundException ex) {
         log.error("Not found entity", ex);
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 
 }

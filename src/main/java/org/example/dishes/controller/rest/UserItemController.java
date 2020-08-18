@@ -18,6 +18,7 @@ public class UserItemController {
     private UserItemRepository userItemRepository;
 
     @PostMapping(value = "/users")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestParam(name = "username") String username,
                                     @RequestParam(name = "password") String password){
         UserItem userItem = new UserItem();
@@ -29,11 +30,8 @@ public class UserItemController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserItem>> read(){
-        final List<UserItem> users = userItemRepository.findAll();
-        return users != null && !users.isEmpty()
-                ? new ResponseEntity<>(users, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public List<UserItem> read(){
+        return userItemRepository.findAll();
     }
 
     @GetMapping(value = "/users/{id}")

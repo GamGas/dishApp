@@ -66,4 +66,8 @@ public class DishService {
         dishRepository.delete(dish);
     }
 
+    public void save(Dish dish){
+        dishRepository.save(dish);
+    }
+
 }

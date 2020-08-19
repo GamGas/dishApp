@@ -22,3 +22,6 @@ table td, th  {
     background: #CD5C5C;
     cursor: pointer;
 }
+.example-chip-list {
+    width: 100%;
+}
